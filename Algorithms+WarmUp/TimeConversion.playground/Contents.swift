@@ -42,3 +42,28 @@ func timeConversion(s: String) -> String {
 }
 
 timeConversion(s: s)
+
+// 2
+
+func timeConversion(s: String) -> String {
+    guard let first = s.first else { return "" }
+    guard let second = s.dropFirst().first else { return "" }
+    guard let firstTwoDigits = Int("\(first)\(second)") else { return "" }
+    
+    var amTime = s.dropLast(2)
+    if s.contains("AM") {
+        if firstTwoDigits == 12 {
+            return "0\(firstTwoDigits-12)\(amTime.dropFirst(2))"
+        }
+        return "\(amTime)"
+    }
+    
+    var pmTime = s.dropLast(2)
+    if s.contains("PM") {
+        if firstTwoDigits < 12 {
+            return "\(firstTwoDigits+12)\(amTime.dropFirst(2))"
+        }
+        return "\(pmTime)"
+    }
+    return ""
+}
